@@ -1,0 +1,26 @@
+# ---- Secrets (NEVER commit) ----
+.env
+.env.*
+!.env.example
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- App data & uploads (local, regenerated) ----
+storage/
+data/
+
+# ---- Node / frontend ----
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+*.log
+
+# ---- OS / editor ----
+.DS_Store
+.idea/
+.vscode/
