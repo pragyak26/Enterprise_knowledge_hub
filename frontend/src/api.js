@@ -1,7 +1,9 @@
 // Thin API client around the FastAPI backend. Dev requests go through the Vite
 // proxy at /api -> http://127.0.0.1:8000.
 
-const BASE = "/api";
+// In dev, requests go through the Vite proxy at /api. In production, set
+// VITE_API_BASE to your backend URL (e.g. https://ekh-backend.onrender.com).
+const BASE = import.meta.env.VITE_API_BASE || "/api";
 
 let token = localStorage.getItem("ekh_token") || null;
 

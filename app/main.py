@@ -17,11 +17,15 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Enterprise Knowledge Hub", version="0.1.0", lifespan=lifespan)
 
-# Allow a future React dev server to call the API.
+# CORS. Origins come from the ALLOWED_ORIGINS env var (comma-separated), or "*".
+# We use bearer tokens (not cookies), so credentials can stay off with "*".
+from app.config import settings  # noqa: E402
+
+_origins = settings.origins_list
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=_origins,
+    allow_credentials="*" not in _origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )

@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 1440
     algorithm: str = "HS256"
 
+    # CORS — comma-separated list of allowed frontend origins, or "*" for any.
+    allowed_origins: str = "*"
+
     # Gemini
     gemini_api_key: str = ""
     embedding_model: str = "models/gemini-embedding-001"
@@ -25,6 +28,10 @@ class Settings(BaseSettings):
     chunk_size: int = 1000
     chunk_overlap: int = 150
     top_k: int = 5
+
+    @property
+    def origins_list(self) -> list[str]:
+        return [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
 
 
 @lru_cache

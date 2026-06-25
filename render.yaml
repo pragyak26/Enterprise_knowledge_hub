@@ -1,0 +1,20 @@
+# Render blueprint for the FastAPI backend.
+# In Render: New → Blueprint → connect this repo. Render reads this file.
+# Free tier: 512MB RAM, sleeps after ~15 min idle, ephemeral disk (data resets
+# on restart — fine for a demo).
+services:
+  - type: web
+    name: ekh-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: GEMINI_API_KEY
+        sync: false # set this in the Render dashboard (kept secret)
+      - key: SECRET_KEY
+        generateValue: true # Render generates a strong value automatically
+      - key: ALLOWED_ORIGINS
+        sync: false # set to your Vercel URL, e.g. https://your-app.vercel.app
